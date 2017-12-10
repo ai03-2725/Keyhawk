@@ -34,7 +34,7 @@ const int KEYCOUNT = 4;
 
 // Change this to key debouncing time.
 // Default for Cherry MX style switches is usually 5ms.
-const int DEBOUNCETIME = 5;
+const unsigned long DEBOUNCETIME = 5;
 
 // Keymap of chars to be pressed, from keys 0 to 9, layer 1 on top.
 // For a function key to 2nd layer, use the ^ karat.
@@ -157,34 +157,34 @@ void scanKeys() {
     // Switch based on the key number since the pins are not in port order.
     switch (i) {
       case 0:
-        keyRead[i] = PIND & _BV(PD2);
+        keyRead[i] = !(PIND & (1<<PD2));
         break;
       case 1:
-        keyRead[i] = PIND & _BV(PD3);
+        keyRead[i] = !(PIND & (1<<PD3));
         break;
       case 2:
-        keyRead[i] = PIND & _BV(PD1);
+        keyRead[i] = !(PIND & (1<<PD1));
         break;
       case 3:
-        keyRead[i] = PIND & _BV(PD0);
+        keyRead[i] = !(PIND & (1<<PD0));
         break;
       case 4:
-        keyRead[i] = PIND & _BV(PD4);
+        keyRead[i] = !(PIND & (1<<PD4));
         break;
       case 5:
-        keyRead[i] = PINC & _BV(PC6);
+        keyRead[i] = !(PINC & (1<<PC6));
         break;
       case 6:
-        keyRead[i] = PIND & _BV(PD7);
+        keyRead[i] = !(PIND & (1<<PD7));
         break;
       case 7:
-        keyRead[i] = PINE & _BV(PE6);
+        keyRead[i] = !(PINE & (1<<PE6));
         break;
       case 8:
-        keyRead[i] = PINB & _BV(PB4);
+        keyRead[i] = !(PINB & (1<<PB4));
         break;
       case 9:
-        keyRead[i] = PINB & _BV(PB5);
+        keyRead[i] = !(PINB & (1<<PB5));
         break;
       default:
         break;
@@ -236,7 +236,7 @@ void calculateKeys() {
   // Loop all keys
   for (int i = 0; i < KEYCOUNT; i++) {
     // If key is pressed
-    if (keyRead[i]) {
+    if (keyRead[i] == 4) {
       // Send keystroke if switching from unpressed
       if (keyStatus[i] == 0) {
         keyStatus[i] = 1;
@@ -256,6 +256,7 @@ void calculateKeys() {
         case 2:
           if (millis() - lastRelease[i] > DEBOUNCETIME) {
             sendKeystroke(i, false);
+            keyStatus[i] = 0;
           }
           break;
         // Otherwise, was unpressed and is unpressed. How boring
