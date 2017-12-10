@@ -236,7 +236,7 @@ void calculateKeys() {
   // Loop all keys
   for (int i = 0; i < KEYCOUNT; i++) {
     // If key is pressed
-    if (keyRead[i] == 4) {
+    if (keyRead[i] == 0) {
       // Send keystroke if switching from unpressed
       if (keyStatus[i] == 0) {
         keyStatus[i] = 1;
