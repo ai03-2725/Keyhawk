@@ -80,6 +80,7 @@ int ledWave;
 
 
 void setup() {
+  delay(2000);
   // Set all pins 0-Keycount to input
   // Also, init variables
   for (int i = 0; i < KEYCOUNT; i++) {
@@ -269,6 +270,7 @@ void loop() {
   scanKeys();
   // Now that key scanning is done, we switch to calculating keypresses.
   calculateKeys();
-  calculateLED();
-  delayMicroseconds(50);
+  delay(1);
+  //calculateLED();
+  //delayMicroseconds(50);
 }
