@@ -271,7 +271,7 @@ void loop() {
   scanKeys();
   // Now that key scanning is done, we switch to calculating keypresses.
   calculateKeys();
-  delay(1);
-  //calculateLED();
-  //delayMicroseconds(50);
+  calculateLED();
+  //delay(1);
+  delayMicroseconds(250);
 }
